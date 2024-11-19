@@ -19,6 +19,7 @@ xlsxwriter = "^3.2.0"
 ipython = "^8.29.0"
 tabulate = "^0.9.0"
 protobuf = ">=3.1.0,<=3.20.2"
+opencv-python = "^4.10.0.84"
 
 [tool.poetry.group.dev.dependencies]
 setuptools = "^75.5.0"
