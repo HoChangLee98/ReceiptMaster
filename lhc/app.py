@@ -47,8 +47,28 @@ def main():
             
             # OCR 추론 및 결과 저장
             st.write('#### 텍스트 추출 중')
-            image = Image.open(img_file)
-            image = np.array(image)
+            file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
+            image = cv2.imdecode(file_bytes, cv2.IMREAD_COLOR)
+            
+            # image = cv2.imread(img_file)
+            # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)  # OpenCV는 BGR로 로드하므로 RGB로 변환
+
+            # 해상도 확대
+            image = cv2.resize(image, None, fx=2, fy=2, interpolation=cv2.INTER_CUBIC)
+            
+            # 밝기 및 대비 조정
+            alpha = 1.1  # 대비 값 조정
+            beta = 5    # 밝기 값 조
+            image = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
+            
+            # 노이즈 제거
+            image = cv2.fastNlMeansDenoisingColored(image, 
+                                        None, 
+                                        h=3, 
+                                        hColor=3, 
+                                        templateWindowSize=7, 
+                                        searchWindowSize=21)
+
 
             with st.spinner('Operating OCR ...'):
                 ocr = PaddleOCR(
@@ -79,7 +99,7 @@ def main():
         if 'llm_result' not in st.session_state:
             # OpenAI LLM 추론 및 결과 저장
             st.write('#### 결과값 생성 중')
-            os.environ["openai_api_key"] = "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"  # OpenAI 키 설정
+            os.environ["openai_api_key"] = ""  # OpenAI 키 설정
 
             with st.spinner('Operating LLM ...'):
                 llm = ChatOpenAI(
