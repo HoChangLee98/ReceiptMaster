@@ -25,10 +25,10 @@ import json
 import cv2
 import numpy as np
 from PIL import Image
-
-
-
-os.environ["OPENAI_API_KEY"] = ""  # OpenAI 키 설정
+import matplotlib.pyplot as plt
+plt.rcParams['font.family'] ='Malgun Gothic'
+plt.rcParams['axes.unicode_minus'] =False
+os.environ["OPENAI_API_KEY"] = "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"  # OpenAI 키 설정
 
 # 엑셀 저장 함수
 def to_excel(df):
@@ -106,7 +106,7 @@ def process_images(uploaded_files):
     ````json
     {{
         "store": "상점명",
-        "date": "날짜 (YYYY-MM-DD HH:mm:ss)",
+        "date": "날짜 (YYYY-MM-DD)",
         "total": "총액 (숫자만 포함)"
     }}
     ```
@@ -146,7 +146,7 @@ def process_images(uploaded_files):
 # Streamlit 메인 앱
 def main():
     # st.title("OCR 및 LLM 기반 영수증 데이터 분석")
-    img = Image.open('./pig_img.png')
+    img = Image.open('./sample-data/pig_img.png')
     # 경로에 있는 이미지 파일을 통해 변수 저장
     st.image(img)
 
@@ -181,7 +181,22 @@ def main():
     if st.session_state.df_result is not None:
         st.write("### 분석 결과")
         st.dataframe(st.session_state.df_result)
-
+        
+        df = pd.DataFrame(st.session_state.df_result)
+        df["date"] = pd.to_datetime(df["date"])
+        df["total"] = df["total"].astype(int)
+        
+        # 그래프 생성
+        fig, ax = plt.subplots()
+        ax.scatter(df["date"], df["total"], color="blue", s=0.5, alpha=0.7)
+        ax.set_title("날짜 별 영수증 총 금액 그래프", fontsize=14)
+        ax.set_xlabel("날짜", fontsize=12)
+        ax.set_ylabel("결제 금액", fontsize=12)
+        ax.grid(True)
+        
+        # Streamlit에 그래프 표시
+        st.pyplot(fig)
+        
         # 파일 다운로드
         file_types = ['None', 'xlsx', 'csv', 'md']
         choice = st.selectbox(

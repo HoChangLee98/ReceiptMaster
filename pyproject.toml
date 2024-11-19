@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "receiptmaster"
+version = "0.1.0"
+description = ""
+authors = ["HoChangLee98 <ghckd3558@nvaer.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.11"
+streamlit = "^1.40.1"
+stqdm = "^0.0.5"
+paddleocr = "^2.9.1"
+langchain-openai = "^0.2.9"
+langchain-core = "^0.3.19"
+paddlepaddle = "^2.6.2"
+pyxlsb = "^1.0.10"
+langchain-teddynote = "^0.3.30"
+xlsxwriter = "^3.2.0"
+ipython = "^8.29.0"
+tabulate = "^0.9.0"
+protobuf = ">=3.1.0,<=3.20.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
