@@ -14,7 +14,7 @@
 
 # # from datetime import datetime
 import streamlit as st
-from stqdm import stqdm
+# from stqdm import stqdm
 from paddleocr import PaddleOCR
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import PromptTemplate
