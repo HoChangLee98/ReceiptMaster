@@ -28,7 +28,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 plt.rcParams['font.family'] ='Malgun Gothic'
 plt.rcParams['axes.unicode_minus'] =False
-os.environ["OPENAI_API_KEY"] = "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"  # OpenAI 키 설정
+os.environ["OPENAI_API_KEY"] = "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"  # OpenAI 키 설정
 
 # 엑셀 저장 함수
 def to_excel(df):
@@ -182,20 +182,20 @@ def main():
         st.write("### 분석 결과")
         st.dataframe(st.session_state.df_result)
         
-        df = pd.DataFrame(st.session_state.df_result)
-        df["date"] = pd.to_datetime(df["date"])
-        df["total"] = df["total"].astype(int)
+        # df = pd.DataFrame(st.session_state.df_result)
+        # df["date"] = pd.to_datetime(df["date"])
+        # df["total"] = df["total"].astype(int)
         
-        # 그래프 생성
-        fig, ax = plt.subplots()
-        ax.scatter(df["date"], df["total"], color="blue", s=0.5, alpha=0.7)
-        ax.set_title("날짜 별 영수증 총 금액 그래프", fontsize=14)
-        ax.set_xlabel("날짜", fontsize=12)
-        ax.set_ylabel("결제 금액", fontsize=12)
-        ax.grid(True)
+        # # 그래프 생성
+        # fig, ax = plt.subplots()
+        # ax.scatter(df["date"], df["total"], color="blue", s=15, alpha=0.7)
+        # ax.set_title("날짜 별 영수증 총 금액 그래프", fontsize=14)
+        # ax.set_xlabel("날짜", fontsize=12)
+        # ax.set_ylabel("결제 금액", fontsize=12)
+        # ax.grid(True)
         
-        # Streamlit에 그래프 표시
-        st.pyplot(fig)
+        # # Streamlit에 그래프 표시
+        # st.pyplot(fig)
         
         # 파일 다운로드
         file_types = ['None', 'xlsx', 'csv', 'md']
